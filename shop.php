@@ -442,7 +442,7 @@
                                         </ul>
                                     </div>
                                     <div class="pi-text">
-                                        <div class="catagory-name">Towel</div>
+                                        <div class="catagory-name">ATN shop</div>
                                         <a href="#">
                                             <h5><?php echo "$product_name" ?></h5>
                                         </a>
