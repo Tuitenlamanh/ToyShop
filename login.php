@@ -212,14 +212,14 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="login-form">
                         <h2>Login</h2>
-                        <form action="#">
+                        <form action="#" method="post">
                             <div class="group-input">
-                                <label for="username">Username or email address *</label>
-                                <input type="text" id="username">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="user_name">
                             </div>
                             <div class="group-input">
-                                <label for="pass">Password *</label>
-                                <input type="text" id="pass">
+                                <label for="pass">Password</label>
+                                <input type="text" id="pass" name="password">
                             </div>
                             <div class="group-input gi-check">
                                 <div class="gi-more">
@@ -231,8 +231,31 @@
                                     <a href="#" class="forget-pass">Forget your Password</a>
                                 </div>
                             </div>
-                            <button type="submit" class="site-btn login-btn">Sign In</button>
+                            <button type="submit" class="site-btn login-btn" name="login">Log In</button>
                         </form>
+                        <?php
+                            include 'connect.php';
+                            if(isset($_POST['login']))
+                            {
+                                $user_name = $_POST['user_name'];
+                                $password = $_POST['password'];
+                                $sql = "SELECT * FROM `users` WHERE user_name = '$user_name' and password = '$password'";
+                                $result = mysqli_query($connect, $sql);
+								$row_user = mysqli_fetch_array($result);
+                                $check_login = mysqli_num_rows($result);
+                                if($check_login > 0){
+									$_SESSION['user_name'] = $row_user['user_name'];
+									echo $_SESSION['user_name'];
+                                    echo "
+                                    <script>alert('Welcome $user_name');
+                                        window.open('index.php', '_self');</script>
+                                    ";
+                                }else {
+                                    echo "Failed!";
+                                }
+                            }
+
+                        ?>
                         <div class="switch-login">
                             <a href="./register.php" class="or-login">Or Create An Account</a>
                         </div>

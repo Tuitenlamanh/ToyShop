@@ -178,8 +178,8 @@
                                 <li><a href="./shopping-cart.php">Shopping Cart</a></li>
                                 <li><a href="./check-out.php">Checkout</a></li>
                                 <li><a href="./faq.php">Faq</a></li>
-                                <li><a href="./register.php">Register</a></li>
-                                <li><a href="./login.php">Login</a></li>
+                                <li><a href="register.php">Register</a></li>
+                                <li><a href="login.php">Login</a></li>
                             </ul>
                         </li>
                     </ul>

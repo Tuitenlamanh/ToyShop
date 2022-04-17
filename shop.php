@@ -345,8 +345,9 @@
                                     </select>
                                 </div>
                             </div>
+								
                             <div class="col-lg-5 col-md-5 text-right">
-								<!-- Button trigger modal -->
+                                <!-- Button trigger modal -->
 								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
 								Add product
 								</button>
@@ -360,7 +361,7 @@
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-											<form action="" method="POST" enctype="multipart/form-data">
+											<form action="" method="post" enctype="multipart/form-data">
                                                 <div class="form-group">
                                                     <label for="exampleInputPassword1">Product name</label>
                                                     <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Product name" name="product_name">
@@ -371,13 +372,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputPassword1">Product image</label>
-                                                    <input type="file" class="form-control" id="exampleInputPassword1" placeholder="Image" name="product_image">
+                                                    <input type="file" class="form-control" id="exampleInputPassword1" placeholder="Image" name="produce_image">
                                                 <div class="form-group">
                                                     <label for="exampleInputPassword1">Description</label>
                                                     <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Description" name="product_des">
                                                 <div class="form-group">
-                                                    <label for="exampleInputPassword1">Category</label>
-                                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Category" name="category_id">
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 													<button type="submit" class="btn btn-primary" name="addproduct">Add</button>
@@ -389,18 +388,17 @@
                                                 {
                                                     $product_name = $_POST['product_name'];
                                                     $product_price = $_POST['product_price'];
-                                                    $product_image = $_POST['product_image'];
-                                                    $product_image = $_FILES['product_image']['name'];
-                                                    $product_image_tmp = $_FILES['product_image']['tmp_name'];
-                                                    move_uploaded_file($product_image_tmp,"img/$product_image");
+                                                    $produce_image = $_POST['produce_image'];
+                                                    $produce_image = $_FILES['produce_image']['name'];
+                                                    $produce_image_tmp = $_FILES['produce_image']['tmp_name'];
+                                                    move_uploaded_file($produce_image_tmp,"img/$produce_image");
                                                     $product_des = $_POST['product_des'];
-                                                    $category_id = $_POST['category_id'];
-                                                    $sql = "INSERT INTO product`(product_name`, product_price, product_image, product_des, category_id) VALUES ('$product_name','$product_price','$product_image','$product_des','$category_id')";
+                                                    $sql = "INSERT INTO `product`( `product_name`, `product_price`, `produce_image`, `product_des`) VALUES ('$product_name','$product_price','$produce_image','$product_des')";
                                                     $add = mysqli_query($connect,$sql);
                                                     if($add){
                                                             echo " Add Successfully
                                                             <script>alert('Add successfully');
-                                                            window.open('listproduct.php', '_self');</script>";
+                                                            window.open('shop.php', '_self');</script>";
                                                     }
                                                     else{
                                                             echo "Error!";
@@ -412,17 +410,27 @@
 								</div>
 								</div>
 							</div>
-                            <!-- <div class="col-lg-5 col-md-5 text-right">
-                                <p>Show 01- 09 Of 36 Product</p>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                     <div class="product-list">
                         <div class="row">
+                        <?php
+                                    include('connect.php');
+                                    $sql = "SELECT * FROM `product`";
+                                    $result = mysqli_query($connect, $sql);
+                                    while ($row = mysqli_fetch_array($result))
+                                    {
+                                        $product_id= $row['product_id'];
+                                        $product_name = $row['product_name'];
+                                        $product_price = $row['product_price'];
+                                        $produce_image = $row['produce_image'];
+                                        $product_des = $row['product_des'];
+                                ?>
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
-                                        <img src="img/products/product-1.jpg" alt="">
+                                        <a href="productdetail.php?product_id=<?php echo "$product_id" ?>"><img src="img/<?php echo "$produce_image" ?>" alt=""></a>
                                         <div class="sale pp-sale">Sale</div>
                                         <div class="icon">
                                             <i class="icon_heart_alt"></i>
@@ -436,223 +444,16 @@
                                     <div class="pi-text">
                                         <div class="catagory-name">Towel</div>
                                         <a href="#">
-                                            <h5>Pure Pineapple</h5>
+                                            <h5><?php echo "$product_name" ?></h5>
                                         </a>
                                         <div class="product-price">
-                                            $14.00
-                                            <span>$35.00</span>
+                                        $<?php echo "$product_price" ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-2.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Coat</div>
-                                        <a href="#">
-                                            <h5>Guangzhou sweater</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $13.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-3.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Shoes</div>
-                                        <a href="#">
-                                            <h5>Guangzhou sweater</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $34.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-4.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Coat</div>
-                                        <a href="#">
-                                            <h5>Microfiber Wool Scarf</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $64.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-5.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Shoes</div>
-                                        <a href="#">
-                                            <h5>Men's Painted Hat</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $44.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-6.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Shoes</div>
-                                        <a href="#">
-                                            <h5>Converse Shoes</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $34.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-7.jpg" alt="">
-                                        <div class="sale pp-sale">Sale</div>
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Towel</div>
-                                        <a href="#">
-                                            <h5>Pure Pineapple</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $64.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-8.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Coat</div>
-                                        <a href="#">
-                                            <h5>2 Layer Windbreaker</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $44.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-9.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Shoes</div>
-                                        <a href="#">
-                                            <h5>Converse Shoes</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $34.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php } ?>
                         </div>
-                    </div>
-                    <div class="loading-more">
-                        <i class="icon_loading"></i>
-                        <a href="#">
-                            Loading More
-                        </a>
                     </div>
                 </div>
             </div>
