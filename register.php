@@ -212,21 +212,41 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="register-form">
                         <h2>Register</h2>
-                        <form action="#">
+                        <form action="#" method="post">
                             <div class="group-input">
-                                <label for="username">Username or email address *</label>
-                                <input type="text" id="username">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="user_name">
                             </div>
                             <div class="group-input">
-                                <label for="pass">Password *</label>
-                                <input type="text" id="pass">
+                                <label for="pass">Email </label>
+                                <input type="text" id="pass" name="email">
                             </div>
                             <div class="group-input">
-                                <label for="con-pass">Confirm Password *</label>
-                                <input type="text" id="con-pass">
+                                <label for="con-pass">Password</label>
+                                <input type="password" id="con-pass" name="password">
                             </div>
-                            <button type="submit" class="site-btn register-btn">REGISTER</button>
+                            <button type="submit" class="site-btn register-btn" name="signup">REGISTER</button>
                         </form>
+                        <?php
+                        include 'connect.php';
+                        if(isset($_POST['signup']))
+                            {
+                            $user_name = $_POST['user_name'];
+                            $email = $_POST['email'];
+                            $password = $_POST['password'];
+                            $sql ="INSERT INTO `users`(`user_name`, `email`, `password`) VALUES ('$user_name','$email','$password')";
+                            $signup = mysqli_query($connect,$sql);
+                                if($signup){
+                                    echo " Sign-Up Successfully
+                                        <script>alert('Welcome $user_name, Login Now!');
+                                        window.open('login.php', '_self');</script>";
+                                            }
+                                else{
+                                    echo "Error!";
+                                    }
+                            }
+                        ?>
+                    
                         <div class="switch-login">
                             <a href="./login.php" class="or-login">Or Login</a>
                         </div>
