@@ -69,7 +69,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <a href="./index.php">
-                                <img src="img/logo.png" alt="">
+                                <img src="img/ATN.png" alt="">
                             </a>
                         </div>
                     </div>
@@ -451,7 +451,7 @@
                                                     if($add){
                                                             echo " Edit Successfully
                                                             <script>alert('Edit successfully');
-                                                            window.open('detailsong.php?product_id=$product_id', '_self');</script>";
+                                                            window.open('productdetail.php?product_id=$product_id', '_self');</script>";
                                                     }
                                                     else{
                                                             echo "Error!";
