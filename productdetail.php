@@ -350,7 +350,7 @@
 									?>
                         <div class="col-lg-6">
                             <div class="product-pic-zoom">
-                                <img class="product-big-img" src="img/<?php echo "$produce_image" ?>" alt="">
+                                <img class="product-big-img" src="img/products/<?php echo "$produce_image" ?>" alt="">
                                 <div class="zoom-icon">
                                     <i class="fa fa-search-plus"></i>
                                 </div>

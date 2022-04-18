@@ -430,7 +430,7 @@
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
-                                        <a href="productdetail.php?product_id=<?php echo "$product_id" ?>"><img src="img/<?php echo "$produce_image" ?>" alt=""></a>
+                                        <a href="productdetail.php?product_id=<?php echo "$product_id" ?>"><img src="img/products/<?php echo "$produce_image" ?>" alt=""></a>
                                         <div class="sale pp-sale">Sale</div>
                                         <div class="icon">
                                             <i class="icon_heart_alt"></i>
